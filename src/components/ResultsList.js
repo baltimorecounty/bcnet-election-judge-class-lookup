@@ -17,7 +17,13 @@ class ResultsList extends Component {
 	}
 
 	displayList() {
-		//if (this.state.results.length === 0)
+		if (this.state.results.length === 0) {
+			return (
+				<tr>
+					<td colspan="5"><p>There are no results to display.</p></td>
+				</tr>
+			);
+		}
 
 		return this.state.results.map(result => {
 			return (
@@ -55,14 +61,14 @@ class ResultsList extends Component {
 
 	render() {
 		return (
-			<table className="table">
+			<table id="BACO_table">
 				<thead>
 					<tr>
-						<th onClick={() => this.tableSort('FirstName')}>First Name</th>
-						<th onClick={() => this.tableSort('LastName')}>Last Name</th>				
-						<th onClick={() => this.tableSort('PhoneNumber')}>Phone</th>				
-						<th onClick={() => this.tableSort('Email')}>Email</th>				
-						<th onClick={() => this.tableSort('FormName')}>Class</th>
+						<th className="BACOTableHeader" onClick={() => this.tableSort('FirstName')}>First Name</th>
+						<th className="BACOTableHeader" onClick={() => this.tableSort('LastName')}>Last Name</th>				
+						<th className="BACOTableHeader" onClick={() => this.tableSort('PhoneNumber')}>Phone</th>				
+						<th className="BACOTableHeader" onClick={() => this.tableSort('Email')}>Email</th>				
+						<th className="BACOTableHeader" onClick={() => this.tableSort('FormName')}>Class</th>
 					</tr>
 				</thead>
 				<tbody>

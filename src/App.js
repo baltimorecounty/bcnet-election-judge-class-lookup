@@ -17,7 +17,10 @@ class App extends Component {
 				<div className="row">
 					<div className="col-xs-12">
 						<h1>Election Judge Lookup Tool</h1>
-						<p>This is the intro.</p>
+						<p>
+							Search for election judge class registrants by either first name, last name, phone (ex. 4105551212), or email address.<br />
+							You can click any column header to sort the results.
+						</p>
 					</div>
 				</div>
 				<div className="row">
@@ -27,7 +30,7 @@ class App extends Component {
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<div className="well top-margin">
+						<div className="top-margin">
 							<ResultsList results={this.state.results} />
 						</div>
 					</div>

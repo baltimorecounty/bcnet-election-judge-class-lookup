@@ -18,12 +18,16 @@ class SearchBox extends Component {
 	}
 
 	handleSearchClick() {
+		if (this.state.searchTerm.trim().length === 0) {
+			return;
+		}
+
 		if (!this.props.onResults) {
 			console.error('Results are unhandled.');
 			return;
 		}
 
-		fetch(`${Urls.searchDev}/${this.state.searchTerm}`)
+		fetch(`${Urls.search}/${this.state.searchTerm}`)
 			.then(results => results.json())
 			.then(jsonResults => this.props.onResults(jsonResults))
 			.catch(error => console.error(error));
@@ -33,8 +37,7 @@ class SearchBox extends Component {
 		return (
 			<fieldset>
 				<div className="form-group">
-					<label htmlFor="search-box">Search election judge class registrations</label>
-					<input id="search-box" className="form-control" onChange={this.handleTextChange} />
+					<input id="search-box" className="form-control top-margin" onChange={this.handleTextChange} placeholder="Search by first name, last name, phone, or email" />
 				</div>			
 				<button className="btn btn-primary" onClick={this.handleSearchClick}>Search!</button>
 			</fieldset>
