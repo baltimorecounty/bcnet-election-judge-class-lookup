@@ -66,11 +66,11 @@ class ElectionJudgeList extends Component {
 			<table id="BACO_table">
 				<thead>
 					<tr>
-						<th className="BACOTableHeader" onClick={() => this.tableSort('FirstName')}>First Name</th>
-						<th className="BACOTableHeader" onClick={() => this.tableSort('LastName')}>Last Name</th>				
-						<th className="BACOTableHeader" onClick={() => this.tableSort('PhoneNumber')}>Phone</th>				
-						<th className="BACOTableHeader" onClick={() => this.tableSort('Email')}>Email</th>				
-						<th className="BACOTableHeader" onClick={() => this.tableSort('FormName')}>Class</th>
+						<th className="BACOTableHeader" onClick={this.tableSort.bind(this, 'FirstName')}>First Name</th>
+						<th className="BACOTableHeader" onClick={this.tableSort.bind(this, 'LastName')}>Last Name</th>				
+						<th className="BACOTableHeader" onClick={this.tableSort.bind(this, 'PhoneNumber')}>Phone</th>				
+						<th className="BACOTableHeader" onClick={this.tableSort.bind(this, 'Email')}>Email</th>				
+						<th className="BACOTableHeader" onClick={this.tableSort.bind(this, 'FormName')}>Class</th>
 					</tr>
 				</thead>
 				<tbody>
