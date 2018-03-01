@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ResultsList extends Component {
+class ElectionJudgeList extends Component {
 	constructor(props) {
 		super(props);
 
@@ -17,17 +17,17 @@ class ResultsList extends Component {
 	}
 
 	displayList() {
-		if (this.state.results.length === 0) {
+		if (!this.state.results.length) {
 			return (
 				<tr>
-					<td colspan="5"><p>There are no results to display.</p></td>
+					<td colSpan="5"><p>There are no results to display.</p></td>
 				</tr>
 			);
 		}
 
-		return this.state.results.map(result => {
+		return this.state.results.map((result, index) => {
 			return (
-				<tr>
+				<tr key={`${result.PhoneNumber}--${index}`}>
 					<td>{ result.FirstName }</td>
 					<td>{ result.LastName }</td>
 					<td>{ result.PhoneNumber }</td>
@@ -41,22 +41,24 @@ class ResultsList extends Component {
 	tableSort(fieldName) {
 		const results = Array.prototype.slice.call(this.state.results);
 
-		results.sort((left, right) => {
-			const leftField = left[fieldName].toLowerCase();
-			const rightField = right[fieldName].toLowerCase();
-
-			if (leftField > rightField) {
-				return 1;
-			}
-
-			if (leftField < rightField) {
-				return -1;
-			}
-
-			return 0;
-		});
+		results.sort((left, right) => this.resultsComparer(left, right, fieldName));
 
 		this.setState({ results });
+	}
+
+	resultsComparer(left, right, fieldName) {
+		const leftField = left[fieldName].toLowerCase();
+		const rightField = right[fieldName].toLowerCase();
+
+		if (leftField > rightField) {
+			return 1;
+		}
+
+		if (leftField < rightField) {
+			return -1;
+		}
+
+		return 0;
 	}
 
 	render() {
@@ -79,4 +81,4 @@ class ResultsList extends Component {
 	}
 }
 
-export { ResultsList };
+export { ElectionJudgeList };
