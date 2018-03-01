@@ -19,7 +19,7 @@ class App extends Component {
 			return;
 		}
 
-		fetch(`${Urls.searchDev}/${searchTerm}`)
+		fetch(`${Urls.search}/${searchTerm}`)
 			.then(results => results.json())
 			.then(jsonResults => this.setState({ electionJudges: jsonResults }))
 			.then(() => callback())
