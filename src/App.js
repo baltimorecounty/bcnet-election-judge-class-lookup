@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ResultsList, SearchBox } from './components';
+import { ElectionJudgeList, SearchBox } from './components';
+import Urls from './constants/Urls';
 import './App.css';
 
 class App extends Component {
@@ -7,8 +8,22 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			results: [],
+			electionJudges: [],
 		}
+
+		this.handleSearchClick = this.handleSearchClick.bind(this);
+	}
+
+	handleSearchClick(searchTerm, callback) {		
+		if (!searchTerm || !searchTerm.trim().length) {
+			return;
+		}
+
+		fetch(`${Urls.searchDev}/${searchTerm}`)
+			.then(results => results.json())
+			.then(jsonResults => this.setState({ electionJudges: jsonResults }))
+			.then(() => callback())
+			.catch(error => console.error(error));
 	}
 
 	render() {
@@ -25,13 +40,16 @@ class App extends Component {
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<SearchBox onResults={results => this.setState({ results })} />
+						<SearchBox 
+							onResults={electionJudges => this.setState({ electionJudges })} 
+							onClick={this.handleSearchClick} 
+							placeholder="Search by first name, last name, phone, or email" />
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
 						<div className="top-margin">
-							<ResultsList results={this.state.results} />
+							<ElectionJudgeList results={this.state.electionJudges} />
 						</div>
 					</div>
 				</div>										

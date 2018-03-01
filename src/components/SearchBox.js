@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Urls from '../constants/Urls';
 
 class SearchBox extends Component {
 	constructor(props) {
@@ -7,39 +6,46 @@ class SearchBox extends Component {
 
 		this.state = {
 			searchTerm: '',
+			isLoading: false,
 		};
 	
 		this.handleTextChange = this.handleTextChange.bind(this);
-		this.handleSearchClick = this.handleSearchClick.bind(this);
+		this.renderButton = this.renderButton.bind(this);
+		this.search = this.search.bind(this);
 	}
 
 	handleTextChange(changeEvent) {
 		this.setState({ searchTerm: changeEvent.target.value.trim() })
 	}
 
-	handleSearchClick() {
-		if (this.state.searchTerm.trim().length === 0) {
-			return;
+	search() {
+		this.setState({ isLoading: true });
+		this.props.onClick(this.state.searchTerm, () => this.setState({ isLoading: false }));
+	}
+
+	renderButton() {
+		if (this.state.isLoading) {
+			return (
+				<button className="btn btn-primary" onClick={this.search}>
+					<i className="fa fa-spin fa-spinner" aria-hidden="true"></i>
+				</button>				
+			)
 		}
 
-		if (!this.props.onResults) {
-			console.error('Results are unhandled.');
-			return;
-		}
-
-		fetch(`${Urls.search}/${this.state.searchTerm}`)
-			.then(results => results.json())
-			.then(jsonResults => this.props.onResults(jsonResults))
-			.catch(error => console.error(error));
+		return (
+			<button className="btn btn-primary" onClick={this.search}>
+				Search!
+			</button>				
+		);
 	}
 
 	render() {
 		return (
 			<fieldset>
 				<div className="form-group">
-					<input id="search-box" className="form-control top-margin" onChange={this.handleTextChange} placeholder="Search by first name, last name, phone, or email" />
+					<input id="search-box" className="form-control top-margin" onChange={this.handleTextChange} placeholder={this.props.placeholder} />
 				</div>			
-				<button className="btn btn-primary" onClick={this.handleSearchClick}>Search!</button>
+				{this.renderButton()}
 			</fieldset>
 		);
 	}
