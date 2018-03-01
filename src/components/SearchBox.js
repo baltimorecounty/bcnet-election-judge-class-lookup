@@ -12,6 +12,7 @@ class SearchBox extends Component {
 		this.handleTextChange = this.handleTextChange.bind(this);
 		this.renderButton = this.renderButton.bind(this);
 		this.search = this.search.bind(this);
+		this.afterSearch = this.afterSearch.bind(this);
 	}
 
 	handleTextChange(changeEvent) {
@@ -21,15 +22,23 @@ class SearchBox extends Component {
 	search() {
 		if (this.state.searchTerm.length) {
 			this.setState({ isLoading: true });
-			this.props.onClick(this.state.searchTerm, () => this.setState({ isLoading: false }));
+			this.props.onClick(this.state.searchTerm, this.afterSearch);
 		}
+	}
+
+	afterSearch(errorMessage) {
+		if (errorMessage && errorMessage.length) {
+			alert(errorMessage);
+		}
+
+		this.setState({ isLoading: false });
 	}
 
 	renderButton() {
 		if (this.state.isLoading) {
 			return (
 				<button className="btn btn-primary" onClick={this.search}>
-					<i className="fa fa-spin fa-spinner" aria-hidden="true"></i>
+					<i className="fa fa-spin fa-refresh" aria-hidden="true"></i>
 				</button>				
 			)
 		}

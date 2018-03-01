@@ -23,7 +23,10 @@ class App extends Component {
 			.then(results => results.json())
 			.then(jsonResults => this.setState({ electionJudges: jsonResults }))
 			.then(() => callback())
-			.catch(error => console.error(error));
+			.catch(error => { 
+				callback("There was a problem communicating with the server. Please try again later.");
+				console.error(error);
+			});
 	}
 
 	render() {
