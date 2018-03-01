@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ElectionJudgeList, SearchBox } from './components';
+import { ElectionJudgeList, ErrorDisplay, SearchBox } from './components';
 import Urls from './constants/Urls';
 import './App.css';
 
@@ -9,6 +9,7 @@ class App extends Component {
 
 		this.state = {
 			electionJudges: [],
+			errorMessage: '',
 		}
 
 		this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -21,11 +22,14 @@ class App extends Component {
 
 		fetch(`${Urls.search}/${searchTerm}`)
 			.then(results => results.json())
-			.then(jsonResults => this.setState({ electionJudges: jsonResults }))
+			.then(jsonResults => this.setState({ 
+				electionJudges: jsonResults,
+				errorMessage: '',
+			}))
 			.then(() => callback())
-			.catch(error => { 
-				callback("There was a problem communicating with the server. Please try again later.");
-				console.error(error);
+			.catch(() => { 
+				this.setState({ errorMessage: 'There was a problem communicating with the server. Please try again later.' });
+				callback();
 			});
 	}
 
@@ -39,6 +43,7 @@ class App extends Component {
 							Search for election judge class registrants by either first name, last name, phone (ex. 4105551212), or email address.<br />
 							You can click any column header to sort the results.
 						</p>
+						<ErrorDisplay message={this.state.errorMessage} />
 					</div>
 				</div>
 				<div className="row">
