@@ -43,7 +43,8 @@ class App extends Component {
 						<SearchBox 
 							onResults={electionJudges => this.setState({ electionJudges })} 
 							onClick={this.handleSearchClick} 
-							placeholder="Search by first name, last name, phone, or email" />
+							placeholder="Search by first name, last name, phone, or email"
+							buttonCaption="Search!" />
 					</div>
 				</div>
 				<div className="row">

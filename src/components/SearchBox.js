@@ -19,8 +19,10 @@ class SearchBox extends Component {
 	}
 
 	search() {
-		this.setState({ isLoading: true });
-		this.props.onClick(this.state.searchTerm, () => this.setState({ isLoading: false }));
+		if (this.state.searchTerm.length) {
+			this.setState({ isLoading: true });
+			this.props.onClick(this.state.searchTerm, () => this.setState({ isLoading: false }));
+		}
 	}
 
 	renderButton() {
@@ -34,7 +36,7 @@ class SearchBox extends Component {
 
 		return (
 			<button className="btn btn-primary" onClick={this.search}>
-				Search!
+				{this.props.buttonCaption}
 			</button>				
 		);
 	}
