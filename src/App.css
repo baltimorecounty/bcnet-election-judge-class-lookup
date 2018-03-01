@@ -1,0 +1,35 @@
+.top-margin {
+  margin-top: 1em;
+}
+
+h1 {
+  border-bottom: 1px solid #ebebeb;
+  border-top: 5px solid #ebebeb;
+  color: #c51110 !important;
+  font-size: 1.6em;
+  line-height: 30px !important;
+  margin: 0 0 13px !important;
+  padding: 7px 0;
+  font-family: 'Patua One' !important;
+  font-weight: normal;
+}
+
+th {
+  cursor: pointer;
+}
+
+#mainContent button.btn {
+  width: auto;
+}
+
+.form-group {
+  padding: 0;
+}
+
+#mainContent fieldset {
+  padding: 0 20px 20px;
+}
+
+#mainContent .form-group input {
+  width: 100%;
+}
