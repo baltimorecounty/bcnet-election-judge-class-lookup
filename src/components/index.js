@@ -1,2 +1,2 @@
 export * from './SearchBox';
-export * from './ResultsList';
+export * from './ElectionJudgeList';
